@@ -1,8 +1,10 @@
 ---
 import "../styles/global.css";
 
-// Where the functional app lives (app.sessionseal.com in prod, :3001 locally).
-const APP = import.meta.env.PUBLIC_APP_URL || "http://localhost:3001";
+// Where the functional app lives. Baked in AT BUILD TIME (this is a static
+// site — runtime env vars on the host do nothing). Local dev overrides via
+// .env (PUBLIC_APP_URL=http://localhost:3001); an env-less build gets prod.
+const APP = import.meta.env.PUBLIC_APP_URL || "https://app.sessionseal.com";
 
 const WAVE = [
   22, 38, 56, 44, 30, 52, 66, 48, 34, 26, 42, 60, 72, 58, 40, 30, 48, 64, 54,

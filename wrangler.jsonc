@@ -1,0 +1,12 @@
+{
+  // Deploy the built static site to the existing "saga" Worker:
+  //   npm run build && npx wrangler deploy
+  // (wrangler login once first). PUBLIC_APP_URL is build-time only — set it
+  // in the shell before `npm run build` if it ever needs to differ from the
+  // default baked into src/pages/index.astro.
+  "name": "saga",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist"
+  }
+}
