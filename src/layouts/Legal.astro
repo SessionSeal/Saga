@@ -1,0 +1,109 @@
+---
+import "../styles/global.css";
+
+const { title, updated } = Astro.props;
+const markPath =
+  "M32 3.00A29.00 29.00 0 1 1 31.99 3.00ZM32 20.00A12.00 12.00 0 1 1 31.99 20.00ZM54.12 35.50A22.40 22.40 0 0 1 32.39 54.40L32.29 48.40A16.40 16.40 0 0 0 48.20 34.57Z";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — SessionSeal</title>
+    <meta name="description" content={`${title} for SessionSeal.`} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+    <div class="ld-page">
+      <div class="ld-nav-wrap">
+        <nav class="ld-nav">
+          <a class="ld-mark" href="/">
+            <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true">
+              <path fill="#4d7eff" fill-rule="evenodd" d={markPath}></path>
+            </svg>
+            <span>Session<b style="font-weight: 800">Seal</b></span>
+          </a>
+          <a class="ld-pill ghost" href="/">← Back to the site</a>
+        </nav>
+      </div>
+
+      <main class="legal">
+        <h1>{title}</h1>
+        <p class="legal-updated">Last updated: {updated}</p>
+        <slot />
+      </main>
+
+      <footer class="ld-footer">
+        <div class="ruler" aria-hidden="true"></div>
+        <div class="ld-footer-base">
+          <span>© 2026 SessionSeal — proof-of-concept</span>
+          <span>
+            <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>
+          </span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  .legal {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 140px 24px 96px;
+  }
+  .legal h1 {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .legal-updated {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 42px;
+  }
+  .legal :global(h2) {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 38px 0 10px;
+  }
+  .legal :global(p),
+  .legal :global(li) {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+  .legal :global(p) {
+    margin: 0 0 14px;
+  }
+  .legal :global(ul) {
+    margin: 0 0 14px;
+    padding-left: 22px;
+  }
+  .legal :global(li) {
+    margin-bottom: 6px;
+  }
+  .legal :global(strong) {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .legal :global(a) {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .legal :global(a:hover) {
+    text-decoration: underline;
+  }
+  .ld-footer-base a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .ld-footer-base a:hover {
+    color: var(--text);
+  }
+</style>
