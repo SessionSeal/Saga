@@ -1,0 +1,413 @@
+---
+import "../styles/global.css";
+
+// Where the functional app lives (app.sessionseal.com in prod, :3001 locally).
+const APP = import.meta.env.PUBLIC_APP_URL || "http://localhost:3001";
+
+const WAVE = [
+  22, 38, 56, 44, 30, 52, 66, 48, 34, 26, 42, 60, 72, 58, 40, 30, 48, 64, 54,
+  38, 28, 44, 58, 70, 52, 36, 24, 40, 56, 46, 32, 50, 68, 60, 44, 30, 22, 38,
+  52, 42, 28, 46, 62, 50, 36, 26, 34, 48,
+];
+
+const ROWS = [
+  {
+    n: "01",
+    t: "Verified before sealed",
+    b:
+      "Nothing gets a stamp until the parts prove they belong together: your " +
+      "stems must audibly rebuild your master, and your session must show " +
+      "the fossil record of real work — takes inside stems, save history, " +
+      "recording dates spread over time.",
+  },
+  {
+    n: "02",
+    t: "Survives every platform",
+    b:
+      "Streaming services strip your metadata and compress everything. The " +
+      "record is built for that: an inaudible watermark and an acoustic " +
+      "fingerprint carry any copy back home after the metadata is long gone.",
+  },
+  {
+    n: "03",
+    t: "Three ways home",
+    b:
+      "The watermark finds the exact match, the fingerprint finds the " +
+      "damaged copy, the signature proves the lossless one. Each covers the " +
+      "others' blind spots — by design.",
+  },
+  {
+    n: "04",
+    t: "Honest by design",
+    b:
+      "Every record states exactly what it proves — you held the files, " +
+      "they're unchanged, they belong together, and you had them first — " +
+      "and what it doesn't. Precision is what wins disputes.",
+  },
+];
+
+const markPath =
+  "M32 3.00A29.00 29.00 0 1 1 31.99 3.00ZM32 20.00A12.00 12.00 0 1 1 31.99 20.00ZM54.12 35.50A22.40 22.40 0 0 1 32.39 54.40L32.29 48.40A16.40 16.40 0 0 0 48.20 34.57Z";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SessionSeal — prove your music is yours</title>
+    <meta
+      name="description"
+      content="Seal a master, stems, and session into a tamper-evident signed record; link any future copy back to it."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:title" content="SessionSeal — prove your music is yours" />
+    <meta
+      property="og:description"
+      content="Seal a master, stems, and session into a tamper-evident signed record."
+    />
+    <meta property="og:image" content="/og-image.png" />
+  </head>
+  <body>
+    <div class="ld-page">
+      <div class="ld-nav-wrap">
+        <nav class="ld-nav">
+          <a class="ld-mark" href="/">
+            <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true">
+              <path fill="#4d7eff" fill-rule="evenodd" d={markPath}></path>
+            </svg>
+            <span>Session<b style="font-weight: 800">Seal</b></span>
+          </a>
+          <div class="ld-nav-links">
+            <a href="#how">How it works</a>
+            <a href="#checkers">Checkers</a>
+          </div>
+          <a class="ld-pill" href={`${APP}/app`}> Open the app → </a>
+        </nav>
+      </div>
+
+      <header class="ld-hero">
+        <div class="ld-hero-inner">
+          <h1 class="rise" style="--d: 0.05s">
+            Prove your music
+            <br />
+            is <span class="scribble"
+              >yours.
+              <svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true">
+                <path
+                  d="M3 8 C 30 3, 55 10, 82 6 S 135 4, 160 8 S 190 6, 197 5"
+                  fill="none"
+                  stroke="#4d7eff"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  opacity="0.9"></path>
+                <path
+                  d="M8 10 C 40 7, 80 11, 120 8 S 180 9, 194 8"
+                  fill="none"
+                  stroke="#4d7eff"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  opacity="0.5"></path>
+              </svg>
+            </span>
+          </h1>
+          <p class="lede rise" style="--d: 0.18s">
+            Upload your stems, master, and session once. Your track gets a
+            sealed, timestamped record. If it's ever claimed, flagged, or
+            stolen, your proof already exists.
+          </p>
+          <div class="ld-cta-row rise" style="--d: 0.3s">
+            <a class="ld-pill ghost" href="#how"> How it works </a>
+            <a class="ld-pill" href={`${APP}/app`}> Register a track → </a>
+          </div>
+        </div>
+
+        <div class="ld-mock-wrap rise" style="--d: 0.42s" aria-hidden="true">
+          <div class="ld-mock">
+            <div class="ld-mock-top">
+              <span>
+                <span class="dot"></span>
+                Record sealed — 2026-09-01 04:14 UTC
+              </span>
+              <span>signed · timestamped</span>
+            </div>
+            <div class="ld-mock-body">
+              <div class="ld-mock-wave">
+                {
+                  WAVE.map((h, i) => (
+                    <i class={i >= 18 && i < 30 ? "hot" : ""} style={`height: ${h}%`} />
+                  ))
+                }
+              </div>
+              <div class="ld-mock-badges">
+                <span class="ld-mock-badge"><span class="tick">✓</span>Stems rebuild master — 96.4%</span>
+                <span class="ld-mock-badge"><span class="tick">✓</span>Session checks out — 100</span>
+                <span class="ld-mock-badge"><span class="tick">✓</span>Watermarked</span>
+                <span class="ld-mock-badge"><span class="tick">✓</span>Fingerprinted</span>
+                <span class="ld-mock-badge"><span class="tick">✓</span>Signed</span>
+              </div>
+              <p class="ld-mock-id">
+                record <b>601e3e0c-0aaa-497a-a69a-a5634f2a835b</b> · watermark
+                verified · fingerprint on file
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ld-standards rise" style="--d: 0.55s">
+          <p class="lbl">Built on open standards</p>
+          <div class="marks">
+            <span class="mark">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 2l8 3.5v6c0 5-3.4 8.6-8 10.5C7.4 20.1 4 16.5 4 11.5v-6L12 2z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"></path>
+                <path
+                  d="M8.5 12l2.4 2.4 4.6-4.8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"></path>
+              </svg>
+              C2PA
+            </span>
+            <span class="mark">
+              <svg width="24" height="18" viewBox="0 0 28 20" aria-hidden="true">
+                <rect
+                  x="1"
+                  y="1"
+                  width="26"
+                  height="18"
+                  rx="9"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"></rect>
+                <text
+                  x="14"
+                  y="14"
+                  text-anchor="middle"
+                  font-size="9.5"
+                  font-weight="800"
+                  fill="currentColor"
+                  font-family="inherit">CR</text>
+              </svg>
+              Content Credentials
+            </span>
+            <span class="mark">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="8.5" cy="8.5" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+                <path
+                  d="M11.8 11.8 L20 20 M20 20 v-3.4 M17 17 h3.2"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"></path>
+              </svg>
+              ES256 signatures
+            </span>
+            <span class="mark">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"></rect>
+                <path
+                  d="M9.5 7.5 L8.5 16.5 M15.5 7.5 L14.5 16.5 M7 10.2 h10.5 M6.5 13.8 h10.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"></path>
+              </svg>
+              SHA-256
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <div class="ruler" aria-hidden="true"></div>
+
+      <section id="how" class="ld-section">
+        <div class="ld-section-inner">
+          <h2 class="reveal">From session to sealed record.</h2>
+          <p class="sub reveal" style="--d: 0.1s">
+            The evidence that wins disputes today — session files and stems,
+            produced manually, under duress — sealed cryptographically, in
+            advance.
+          </p>
+          <div class="ld-rows">
+            {
+              ROWS.map((r, i) => (
+                <div class="ld-row reveal" style={`--d: ${i * 0.06}s`}>
+                  <h3>
+                    <span>{r.n}</span>
+                    {r.t}
+                  </h3>
+                  <p>{r.b}</p>
+                </div>
+              ))
+            }
+          </div>
+
+          <div class="ld-cards">
+            <div class="ld-card reveal">
+              <div class="glyph">◌</div>
+              <h3>
+                Inaudible watermark
+                <small>secret-keyed</small>
+              </h3>
+              <p>
+                Hidden in the audio itself, below hearing. It survives every
+                platform's compression, and it's locked with a secret key —
+                nobody else can read it or fake it.
+              </p>
+            </div>
+            <div class="ld-card reveal" style="--d: 0.08s">
+              <div class="glyph">≈</div>
+              <h3>
+                Acoustic fingerprint
+                <small>matches by sound</small>
+              </h3>
+              <p>
+                Recognizes the track by how it sounds, not what file it's in.
+                Catches what kills watermarks — tempo edits, heavy damage,
+                chopped-up copies.
+              </p>
+            </div>
+            <div class="ld-card reveal" style="--d: 0.16s">
+              <div class="glyph">§</div>
+              <h3>
+                Cryptographic signature
+                <small>C2PA standard</small>
+              </h3>
+              <p>
+                An unforgeable seal over your master, stems, and session, with
+                the verification results and a timestamp. Change a single
+                sample and it breaks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="ruler" aria-hidden="true"></div>
+
+      <section id="checkers" class="ld-section">
+        <div class="ld-section-inner">
+          <h2 class="reveal">The forensics, à la carte.</h2>
+          <p class="sub reveal" style="--d: 0.1s">
+            The same checks that guard registration — usable on their own.
+          </p>
+          <div class="ld-tools">
+            <a class="ld-tool reveal" href={`${APP}/stem-master-checker`}>
+              <h3>
+                Stem ↔ master checker<span class="arr">→</span>
+              </h3>
+              <p>
+                Do these stems really add up to this master? We mix them down
+                and compare by sound — cheating gets caught.
+              </p>
+            </a>
+            <a class="ld-tool reveal" style="--d: 0.08s" href={`${APP}/logic-master-checker`}>
+              <h3>
+                Logic ↔ master checker<span class="arr">→</span>
+              </h3>
+              <p>
+                Did this session actually produce these files? Your takes
+                inside your stems, your save history, your recording dates.
+              </p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="ld-cta">
+        <div class="inner">
+          <h2 class="reveal">
+            Seal your first record
+            <br />
+            in <span class="scribble"
+              >minutes.
+              <svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true">
+                <path
+                  d="M3 8 C 30 3, 55 10, 82 6 S 135 4, 160 8 S 190 6, 197 5"
+                  fill="none"
+                  stroke="#4d7eff"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  opacity="0.9"></path>
+                <path
+                  d="M8 10 C 40 7, 80 11, 120 8 S 180 9, 194 8"
+                  fill="none"
+                  stroke="#4d7eff"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  opacity="0.5"></path>
+              </svg>
+            </span>
+          </h2>
+          <p class="reveal" style="--d: 0.1s">
+            Insurance you buy before the fire — and the proof you produce in
+            minutes instead of weeks.
+          </p>
+          <div class="reveal" style="--d: 0.2s">
+            <a class="ld-pill" href={`${APP}/app`}> Open the app → </a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="ld-footer">
+        <div class="ruler" aria-hidden="true"></div>
+        <div class="ld-footer-inner">
+          <div class="brand">
+            <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
+              <path fill="#4d7eff" fill-rule="evenodd" d={markPath}></path>
+            </svg>
+            <h2>Your music, provable forever.</h2>
+            <p>A sealed record for every release — before anyone can question it.</p>
+          </div>
+          <div class="ld-footer-cols">
+            <div class="ld-footer-col">
+              <h3>Product</h3>
+              <a href={`${APP}/app`}>Register a track</a>
+              <a href="#how">How it works</a>
+            </div>
+            <div class="ld-footer-col">
+              <h3>Verify</h3>
+              <a href={`${APP}/verify`}>Verify a copy</a>
+              <a href={`${APP}/compress`}>Compress test</a>
+              <a href={`${APP}/stem-master-checker`}>Stem ↔ master</a>
+              <a href={`${APP}/logic-master-checker`}>Logic ↔ master</a>
+            </div>
+            <div class="ld-footer-col">
+              <h3>Labs</h3>
+              <a href={`${APP}/logic`}>Logic inspector</a>
+              <a href={`${APP}/fingerprint`}>Fingerprint</a>
+              <a href={`${APP}/watermark`}>Watermark</a>
+              <a href={`${APP}/waterprint`}>Waterprint</a>
+            </div>
+          </div>
+        </div>
+        <div class="ld-footer-base">
+          <span>© 2026 SessionSeal — proof-of-concept</span>
+          <span>Records state exactly what they prove — and what they don't.</span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const els = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      );
+      els.forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>
