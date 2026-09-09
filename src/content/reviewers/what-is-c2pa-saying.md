@@ -24,4 +24,4 @@ When the report says "View the signed record," it is linking to a **C2PA Content
 
 Think of the C2PA credential as a tamper-evident seal on an envelope. It proves the envelope was sealed by SessionSeal at a certain time and has not been opened since. What is *inside* the envelope, the evidence of studio work, is what you actually weigh.
 
-To check the credential yourself, see [How do I check the C2PA credential in a SessionSeal file myself?](/faq/how-to-check-c2pa). To understand the "self-attested" wording, see [The signature says "self-attested" — should I trust it?](/faq/self-attested-signature).
+To check the credential yourself, see [How do I check the C2PA credential in a SessionSeal file myself?](/faq/how-to-check-c2pa). To understand the "self-attested" wording, see [Should I trust a "self-attested" signature?](/faq/self-attested-signature).

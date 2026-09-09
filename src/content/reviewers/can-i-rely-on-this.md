@@ -18,7 +18,7 @@ We would rather you understand the report's limits than overtrust it. A source t
 ## Its limits
 
 - **It evidences studio work, not authorship.** It shows the artifacts of real production; it does not certify who wrote the music. See [Does this page prove a human made it?](/faq/does-this-prove-a-human-made-it).
-- **The signer is currently self-attested.** This does not weaken the integrity or timing guarantees, but a public certificate authority does not yet vouch for the signing key. See [The signature says "self-attested" — should I trust it?](/faq/self-attested-signature).
+- **The signer is currently self-attested.** This does not weaken the integrity or timing guarantees, but a public certificate authority does not yet vouch for the signing key. See [Should I trust a "self-attested" signature?](/faq/self-attested-signature).
 - **A weak or inconsistent verdict means what it says.** If the report does not show strong evidence, do not treat it as if it does. The bands are meant to be read literally.
 
 ## How to use it

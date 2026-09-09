@@ -18,11 +18,24 @@ const relatedPosts = related
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} — SessionSeal</title>
+    <title>{title}: SessionSeal</title>
     <meta name="description" content={summary} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="SessionSeal" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={summary} />
+    <meta property="og:image" content="https://www.sessionseal.com/og-image.png" />
+    <meta property="og:image:secure_url" content="https://www.sessionseal.com/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={summary} />
+    <meta name="twitter:image" content="https://www.sessionseal.com/og-image.png" />
   </head>
   <body>
     <div class="ld-page">
@@ -68,7 +81,7 @@ const relatedPosts = related
       <footer class="ld-footer">
         <div class="ruler" aria-hidden="true"></div>
         <div class="ld-footer-base">
-          <span>© 2026 SessionSeal — proof-of-concept</span>
+          <span>© 2026 SessionSeal, proof-of-concept</span>
           <span>
             <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>
           </span>

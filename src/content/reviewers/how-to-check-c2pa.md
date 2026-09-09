@@ -32,6 +32,6 @@ A successful verification tells you the record is **authentic and unaltered**: t
 
 ## What to expect on the signer
 
-You may notice the signing certificate is described as **self-attested** rather than issued by a public certificate authority. That is expected at this stage and does not affect the integrity guarantee. We explain exactly what it means, and what it does and does not change, in [The signature says "self-attested" — should I trust it?](/faq/self-attested-signature).
+You may notice the signing certificate is described as **self-attested** rather than issued by a public certificate authority. That is expected at this stage and does not affect the integrity guarantee. We explain exactly what it means, and what it does and does not change, in [Should I trust a "self-attested" signature?](/faq/self-attested-signature).
 
 For what the credential is actually asserting, see [What exactly is the C2PA credential telling me?](/faq/what-is-c2pa-saying).

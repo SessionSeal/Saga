@@ -1,5 +1,5 @@
 ---
-title: 'The signature says "self-attested" — should I trust it?'
+title: 'Should I trust a "self-attested" signature?'
 summary: "Self-attested means SessionSeal vouches for its own signing key rather than a public certificate authority doing so. It does not weaken the integrity or timestamp guarantees. It only affects whose word you are taking on the signer's identity."
 group: "The signed record (C2PA)"
 order: 6

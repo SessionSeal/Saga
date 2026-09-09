@@ -2,7 +2,7 @@
 import "../styles/global.css";
 
 // Where the functional app lives. Baked in AT BUILD TIME (this is a static
-// site — runtime env vars on the host do nothing). Local dev overrides via
+// site, runtime env vars on the host do nothing). Local dev overrides via
 // .env (PUBLIC_APP_URL=http://localhost:3001); an env-less build gets prod.
 const APP = import.meta.env.PUBLIC_APP_URL || "https://app.sessionseal.com";
 
@@ -19,7 +19,7 @@ const ROWS = [
     b:
       "Nothing gets a stamp until the parts prove they belong together: your " +
       "stems must audibly rebuild your master, and your session must show " +
-      "the fossil record of real work — takes inside stems, save history, " +
+      "the fossil record of real work, takes inside stems, save history, " +
       "recording dates spread over time.",
   },
   {
@@ -36,14 +36,14 @@ const ROWS = [
     b:
       "The watermark finds the exact match, the fingerprint finds the " +
       "damaged copy, the signature proves the lossless one. Each covers the " +
-      "others' blind spots — by design.",
+      "others' blind spots, by design.",
   },
   {
     n: "04",
     t: "Honest by design",
     b:
-      "Every record states exactly what it proves — you held the files, " +
-      "they're unchanged, they belong together, and you had them first — " +
+      "Every record states exactly what it proves (you held the files, " +
+      "they're unchanged, they belong together, and you had them first) " +
       "and what it doesn't. Precision is what wins disputes.",
   },
 ];
@@ -56,20 +56,36 @@ const markPath =
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SessionSeal — prove your music is yours</title>
+    <title>SessionSeal: prove your music is yours</title>
     <meta
       name="description"
-      content="Seal a master, stems, and session into a tamper-evident signed record; link any future copy back to it."
+      content="Seal a master, stems, and session into a tamper-evident signed record, and link any future copy back to it."
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta property="og:title" content="SessionSeal — prove your music is yours" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SessionSeal" />
+    <meta property="og:url" content="https://www.sessionseal.com/" />
+    <meta property="og:title" content="SessionSeal: prove your music is yours" />
     <meta
       property="og:description"
       content="Seal a master, stems, and session into a tamper-evident signed record."
     />
-    <meta property="og:image" content="/og-image.png" />
+    <!-- Absolute URL: WhatsApp mobile (and most scrapers) reject relative og:image. -->
+    <meta property="og:image" content="https://www.sessionseal.com/og-image.png" />
+    <meta property="og:image:secure_url" content="https://www.sessionseal.com/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SessionSeal" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SessionSeal: prove your music is yours" />
+    <meta
+      name="twitter:description"
+      content="Seal a master, stems, and session into a tamper-evident signed record."
+    />
+    <meta name="twitter:image" content="https://www.sessionseal.com/og-image.png" />
   </head>
   <body>
     <div class="ld-page">
@@ -130,7 +146,7 @@ const markPath =
             <div class="ld-mock-top">
               <span>
                 <span class="dot"></span>
-                Record sealed — 2026-09-01 04:14 UTC
+                Record sealed · 2026-09-01 04:14 UTC
               </span>
               <span>signed · timestamped</span>
             </div>
@@ -143,8 +159,8 @@ const markPath =
                 }
               </div>
               <div class="ld-mock-badges">
-                <span class="ld-mock-badge"><span class="tick">✓</span>Stems rebuild master — 96.4%</span>
-                <span class="ld-mock-badge"><span class="tick">✓</span>Session checks out — 100</span>
+                <span class="ld-mock-badge"><span class="tick">✓</span>Stems rebuild master · 96.4%</span>
+                <span class="ld-mock-badge"><span class="tick">✓</span>Session checks out · 100</span>
                 <span class="ld-mock-badge"><span class="tick">✓</span>Watermarked</span>
                 <span class="ld-mock-badge"><span class="tick">✓</span>Fingerprinted</span>
                 <span class="ld-mock-badge"><span class="tick">✓</span>Signed</span>
@@ -232,8 +248,8 @@ const markPath =
         <div class="ld-section-inner">
           <h2 class="reveal">From session to sealed record.</h2>
           <p class="sub reveal" style="--d: 0.1s">
-            The evidence that wins disputes today — session files and stems,
-            produced manually, under duress — sealed cryptographically, in
+            The evidence that wins disputes today (session files and stems,
+            produced manually, under duress) sealed cryptographically, in
             advance.
           </p>
           <div class="ld-rows">
@@ -259,8 +275,8 @@ const markPath =
               </h3>
               <p>
                 Hidden in the audio itself, below hearing. It survives every
-                platform's compression, and it's locked with a secret key —
-                nobody else can read it or fake it.
+                platform's compression, and it's locked with a secret key.
+                Nobody else can read it or fake it.
               </p>
             </div>
             <div class="ld-card reveal" style="--d: 0.08s">
@@ -271,7 +287,7 @@ const markPath =
               </h3>
               <p>
                 Recognizes the track by how it sounds, not what file it's in.
-                Catches what kills watermarks — tempo edits, heavy damage,
+                Catches what kills watermarks, tempo edits, heavy damage,
                 chopped-up copies.
               </p>
             </div>
@@ -297,7 +313,7 @@ const markPath =
         <div class="ld-section-inner">
           <h2 class="reveal">The forensics, à la carte.</h2>
           <p class="sub reveal" style="--d: 0.1s">
-            The same checks that guard registration — usable on their own.
+            The same checks that guard registration, usable on their own.
           </p>
           <div class="ld-tools">
             <a class="ld-tool reveal" href={`${APP}/stem-master-checker`}>
@@ -306,7 +322,7 @@ const markPath =
               </h3>
               <p>
                 Do these stems really add up to this master? We mix them down
-                and compare by sound — cheating gets caught.
+                and compare by sound, cheating gets caught.
               </p>
             </a>
             <a class="ld-tool reveal" style="--d: 0.08s" href={`${APP}/logic-master-checker`}>
@@ -348,7 +364,7 @@ const markPath =
             </span>
           </h2>
           <p class="reveal" style="--d: 0.1s">
-            Insurance you buy before the fire — and the proof you produce in
+            Insurance you buy before the fire, and the proof you produce in
             minutes instead of weeks.
           </p>
           <div class="reveal" style="--d: 0.2s">
@@ -365,7 +381,7 @@ const markPath =
               <path fill="#4d7eff" fill-rule="evenodd" d={markPath}></path>
             </svg>
             <h2>Your music, provable forever.</h2>
-            <p>A sealed record for every release — before anyone can question it.</p>
+            <p>A sealed record for every release, before anyone can question it.</p>
           </div>
           <div class="ld-footer-cols">
             <div class="ld-footer-col">
@@ -390,11 +406,11 @@ const markPath =
           </div>
         </div>
         <div class="ld-footer-base">
-          <span>© 2026 SessionSeal — proof-of-concept</span>
+          <span>© 2026 SessionSeal, proof-of-concept</span>
           <span>
             <a href="/privacy" style="color: inherit">Privacy</a> ·
             <a href="/terms" style="color: inherit">Terms</a> · Records state
-            exactly what they prove — and what they don't.
+            exactly what they prove, and what they don't.
           </span>
         </div>
       </footer>
