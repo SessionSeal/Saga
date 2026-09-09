@@ -1,0 +1,193 @@
+---
+import "../styles/global.css";
+import { getCollection } from "astro:content";
+
+const { title, summary, updated, related = [] } = Astro.props;
+const markPath =
+  "M32 3.00A29.00 29.00 0 1 1 31.99 3.00ZM32 20.00A12.00 12.00 0 1 1 31.99 20.00ZM54.12 35.50A22.40 22.40 0 0 1 32.39 54.40L32.29 48.40A16.40 16.40 0 0 0 48.20 34.57Z";
+
+// Resolve related slugs -> {slug, title} for the cross-link block.
+const all = await getCollection("reviewers");
+const relatedPosts = related
+  .map((slug) => all.find((p) => p.id === slug))
+  .filter(Boolean)
+  .map((p) => ({ slug: p.id, title: p.data.title }));
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — SessionSeal</title>
+    <meta name="description" content={summary} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+    <div class="ld-page">
+      <div class="ld-nav-wrap">
+        <nav class="ld-nav">
+          <a class="ld-mark" href="/">
+            <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true">
+              <path fill="#4d7eff" fill-rule="evenodd" d={markPath}></path>
+            </svg>
+            <span>Session<b style="font-weight: 800">Seal</b></span>
+          </a>
+          <a class="ld-pill ghost" href="/faq">All reviewer questions</a>
+        </nav>
+      </div>
+
+      <main class="doc">
+        <a class="doc-eyebrow" href="/faq">Reviewer guide</a>
+        <h1>{title}</h1>
+        <p class="doc-summary">{summary}</p>
+
+        <article class="doc-body">
+          <slot />
+        </article>
+
+        {relatedPosts.length > 0 && (
+          <section class="doc-related">
+            <h2>Related questions</h2>
+            <ul>
+              {relatedPosts.map((r) => (
+                <li><a href={`/faq/${r.slug}`}>{r.title}</a></li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <div class="doc-backwrap">
+          <a class="ld-pill" id="back-to-report" href="/faq">← Back to the report</a>
+        </div>
+
+        <p class="doc-updated">Last updated: {updated}</p>
+      </main>
+
+      <footer class="ld-footer">
+        <div class="ruler" aria-hidden="true"></div>
+        <div class="ld-footer-base">
+          <span>© 2026 SessionSeal — proof-of-concept</span>
+          <span>
+            <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>
+          </span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // "Back to the report": if the reviewer came from a shared report
+      // (app.sessionseal.com/s/...) prefer sending them straight back there;
+      // otherwise the button falls back to the FAQ index (its href).
+      const back = document.getElementById("back-to-report");
+      if (back) {
+        const ref = document.referrer || "";
+        try {
+          const u = new URL(ref);
+          if (/\/s\//.test(u.pathname)) {
+            back.setAttribute("href", ref);
+            back.textContent = "← Back to the report";
+          } else {
+            back.textContent = "← Back to all questions";
+          }
+        } catch {
+          back.textContent = "← Back to all questions";
+        }
+      }
+    </script>
+
+    <style>
+      .doc {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 128px 24px 90px;
+      }
+      .doc-eyebrow {
+        display: inline-block;
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        text-decoration: none;
+        margin-bottom: 18px;
+      }
+      .doc-eyebrow:hover { text-decoration: underline; }
+      .doc h1 {
+        font-family: "Instrument Serif", Georgia, serif;
+        font-weight: 400;
+        font-size: clamp(2rem, 5vw, 3rem);
+        letter-spacing: -0.01em;
+        line-height: 1.12;
+        margin-bottom: 14px;
+      }
+      .doc-summary {
+        color: var(--text);
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin-bottom: 40px;
+        padding-bottom: 28px;
+        border-bottom: 1px solid var(--border);
+      }
+      .doc-body :global(h2) {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin: 36px 0 10px;
+      }
+      .doc-body :global(p),
+      .doc-body :global(li) {
+        color: var(--muted);
+        font-size: 0.97rem;
+        line-height: 1.78;
+      }
+      .doc-body :global(p) { margin: 0 0 15px; }
+      .doc-body :global(ul) { margin: 0 0 16px; padding-left: 22px; }
+      .doc-body :global(li) { margin-bottom: 8px; }
+      .doc-body :global(strong) { color: var(--text); font-weight: 600; }
+      .doc-body :global(a) { color: var(--accent); text-decoration: none; }
+      .doc-body :global(a:hover) { text-decoration: underline; }
+      .doc-body :global(blockquote) {
+        margin: 0 0 18px;
+        padding: 14px 18px;
+        border-left: 3px solid var(--accent);
+        background: var(--panel);
+        border-radius: 0 10px 10px 0;
+      }
+      .doc-body :global(blockquote p) { margin: 0; color: var(--text); }
+
+      .doc-related {
+        margin-top: 52px;
+        padding: 22px 24px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+      }
+      .doc-related h2 {
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
+      .doc-related ul { list-style: none; margin: 0; padding: 0; }
+      .doc-related li { margin-bottom: 9px; }
+      .doc-related li:last-child { margin-bottom: 0; }
+      .doc-related a {
+        color: var(--text);
+        text-decoration: none;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+      .doc-related a:hover { color: var(--accent); }
+
+      .doc-backwrap { margin-top: 40px; }
+      .doc-updated {
+        color: var(--muted);
+        font-size: 0.8rem;
+        margin-top: 34px;
+      }
+    </style>
+  </body>
+</html>

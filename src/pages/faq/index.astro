@@ -1,0 +1,155 @@
+---
+import "../../styles/global.css";
+import { getCollection } from "astro:content";
+
+const markPath =
+  "M32 3.00A29.00 29.00 0 1 1 31.99 3.00ZM32 20.00A12.00 12.00 0 1 1 31.99 20.00ZM54.12 35.50A22.40 22.40 0 0 1 32.39 54.40L32.29 48.40A16.40 16.40 0 0 0 48.20 34.57Z";
+
+const posts = (await getCollection("reviewers")).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const GROUP_ORDER = [
+  "Start here",
+  "The signed record (C2PA)",
+  "The evidence",
+  "Trust and limits",
+];
+const groups = GROUP_ORDER.map((name) => ({
+  name,
+  posts: posts.filter((p) => p.data.group === name),
+})).filter((g) => g.posts.length > 0);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reviewer guide — SessionSeal</title>
+    <meta
+      name="description"
+      content="Plain-language answers for reviewers assessing a SessionSeal report: what the page is, what C2PA is telling you, and how to read the evidence."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+    <div class="ld-page">
+      <div class="ld-nav-wrap">
+        <nav class="ld-nav">
+          <a class="ld-mark" href="/">
+            <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true">
+              <path fill="#4d7eff" fill-rule="evenodd" d={markPath}></path>
+            </svg>
+            <span>Session<b style="font-weight: 800">Seal</b></span>
+          </a>
+          <a class="ld-pill ghost" href="/">← Back to the site</a>
+        </nav>
+      </div>
+
+      <main class="faq">
+        <p class="faq-eyebrow">Reviewer guide</p>
+        <h1>Questions about a SessionSeal report</h1>
+        <p class="faq-lead">
+          You were sent a shared report because a track was flagged as possibly
+          AI-generated. These answer, in plain language, what you are looking at
+          and how much to trust it. No account, no jargon assumed.
+        </p>
+
+        {groups.map((group) => (
+          <section class="faq-group">
+            <h2>{group.name}</h2>
+            <ul>
+              {group.posts.map((p) => (
+                <li>
+                  <a href={`/faq/${p.id}`}>
+                    <span class="q">{p.data.title}</span>
+                    <span class="a">{p.data.summary}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </main>
+
+      <footer class="ld-footer">
+        <div class="ruler" aria-hidden="true"></div>
+        <div class="ld-footer-base">
+          <span>© 2026 SessionSeal — proof-of-concept</span>
+          <span>
+            <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>
+          </span>
+        </div>
+      </footer>
+    </div>
+
+    <style>
+      .faq {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 128px 24px 90px;
+      }
+      .faq-eyebrow {
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+      .faq h1 {
+        font-family: "Instrument Serif", Georgia, serif;
+        font-weight: 400;
+        font-size: clamp(2.1rem, 5vw, 3rem);
+        letter-spacing: -0.01em;
+        line-height: 1.12;
+        margin-bottom: 16px;
+      }
+      .faq-lead {
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.7;
+        margin-bottom: 52px;
+        max-width: 60ch;
+      }
+      .faq-group { margin-bottom: 40px; }
+      .faq-group h2 {
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--muted);
+        padding-bottom: 10px;
+        margin-bottom: 6px;
+        border-bottom: 1px solid var(--border);
+      }
+      .faq-group ul { list-style: none; margin: 0; padding: 0; }
+      .faq-group li { border-bottom: 1px solid var(--border); }
+      .faq-group li:last-child { border-bottom: none; }
+      .faq-group a {
+        display: block;
+        padding: 18px 4px;
+        text-decoration: none;
+        transition: padding-left 0.15s;
+      }
+      .faq-group a:hover { padding-left: 10px; }
+      .faq-group .q {
+        display: block;
+        color: var(--text);
+        font-size: 1.02rem;
+        font-weight: 600;
+        line-height: 1.4;
+        margin-bottom: 4px;
+      }
+      .faq-group a:hover .q { color: var(--accent); }
+      .faq-group .a {
+        display: block;
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+    </style>
+  </body>
+</html>

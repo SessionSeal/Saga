@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from "astro:content";
+import ReviewerDoc from "../../layouts/ReviewerDoc.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("reviewers");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+// Curated cross-links per post: the 2-3 sibling questions a reviewer reading
+// this one is most likely to have next.
+const RELATED = {
+  "what-is-this-page": ["does-this-prove-a-human-made-it", "what-ai-cannot-produce", "can-i-rely-on-this"],
+  "does-this-prove-a-human-made-it": ["what-ai-cannot-produce", "how-scoring-works", "can-i-rely-on-this"],
+  "what-ai-cannot-produce": ["what-are-stems", "how-scoring-works", "does-this-prove-a-human-made-it"],
+  "what-is-c2pa-saying": ["how-to-check-c2pa", "self-attested-signature", "does-this-prove-a-human-made-it"],
+  "how-to-check-c2pa": ["what-is-c2pa-saying", "self-attested-signature"],
+  "self-attested-signature": ["what-is-c2pa-saying", "how-to-check-c2pa", "can-i-rely-on-this"],
+  "what-are-stems": ["what-the-percentage-means", "what-ai-cannot-produce"],
+  "what-the-percentage-means": ["what-are-stems", "how-scoring-works"],
+  "how-scoring-works": ["what-the-percentage-means", "what-are-stems", "can-i-rely-on-this"],
+  "can-i-rely-on-this": ["does-this-prove-a-human-made-it", "self-attested-signature", "what-is-this-page"],
+};
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const related = RELATED[post.id] || [];
+---
+
+<ReviewerDoc
+  title={post.data.title}
+  summary={post.data.summary}
+  updated={post.data.updated}
+  related={related}
+>
+  <Content />
+</ReviewerDoc>
