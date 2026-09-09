@@ -52,9 +52,15 @@ const relatedPosts = related
       </div>
 
       <main class="doc">
-        <a class="doc-eyebrow" href="/faq">Reviewer guide</a>
-        <h1>{title}</h1>
-        <p class="doc-summary">{summary}</p>
+        {/* set:html (not <h1>{title}</h1>): with a bare expression child
+            followed by a sibling, the Astro compiler misplaced the </h1>,
+            nesting the whole page body inside the h1 so it rendered in the
+            serif h1 font. title/summary are our own static strings. */}
+        <header class="doc-head">
+          <a class="doc-eyebrow" href="/faq">Reviewer guide</a>
+          <h1 set:html={title} />
+          <p class="doc-summary" set:html={summary} />
+        </header>
 
         <article class="doc-body">
           <slot />

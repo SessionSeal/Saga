@@ -42,7 +42,9 @@ const markPath =
       </div>
 
       <main class="legal">
-        <h1>{title}</h1>
+        {/* set:html: a bare <h1>{title}</h1> before a sibling makes the Astro
+            compiler misplace </h1>, wrapping the page body in the serif h1. */}
+        <h1 set:html={title} />
         <p class="legal-updated">Last updated: {updated}</p>
         <slot />
       </main>
